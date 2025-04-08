@@ -1,0 +1,21 @@
+rule:
+  meta:
+    name: send premium SMS message
+    namespace: communication/sms/premium
+    authors:
+      - Jiantang Huang
+    description: Identifies apps that send SMS messages to premium numbers
+    scopes:
+        static: function
+        dynamic: call
+    att&ck:
+      - Exfiltration::Exfiltration Over Other Network Medium [T1011]
+      - Impact::Resource Hijacking [T1496]
+    examples:
+      - com.example.malware
+  features:
+    - and:
+      - api: android.telephony.SmsManager.sendTextMessage
+      - or:
+        - string: /PREMIUM|premium|subscribe|SUBSCRIBE/i
+        - string: /\d{4,5}/

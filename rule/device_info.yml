@@ -1,0 +1,19 @@
+rule:
+  meta:
+    name: gather device information
+    namespace: collection/device_info
+    authors:
+      - Jiantang Huang
+    description: Identifies apps that access system and device information
+    scopes:
+      static: function
+      dynamic: call
+    att&ck:
+      - Collection::Hardware [T1082]
+    examples:
+      - com.liuzh.deviceinfo
+  features:
+    - or:
+      - string: "/proc/meminfo"
+      - string: "/sys/devices/system/cpu"
+      - string: "/system/xbin/su"
